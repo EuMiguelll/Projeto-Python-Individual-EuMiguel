@@ -11,6 +11,7 @@ VERDE_ESCURO = [0, 100, 0]
 AZUL = [0, 0, 130]
 AMARELO = [255, 255, 0]
 VERMELHO = [255, 0, 0]
+VERMELHO_ESCURO = [204, 34,0]
 ROXO = [200, 0, 200]
 MARROM_ESCURO = [100, 50, 0]
 MARROM_MAIS_ESCURO = [75, 40, 0]
@@ -24,9 +25,10 @@ TELA_INVENTARIO = 2
 # Objetos
 # As constantes abaixo são os caracteres que representam cada objeto no mapa.
 # Você pode mudar os caracteres para o que preferir.
-JOGADOR = '🚗'
-CORACAO = '❤️'
-ESPINHO = '#'
-MONSTRO = '☠'
-PAREDE = '▣'
-VIDA = "💕"
+JOGADOR = 'ӧ'
+CORACAO = ''
+ESPINHO = '♠'
+MONSTRO = 'ϊ'
+PAREDE = '#'
+VIDA = "♥"
+DANO = "~"

@@ -119,11 +119,11 @@ def __carrega_fonte():
     
     encontrou_tamanho_certo = False
     while not encontrou_tamanho_certo:
-        fonte = pygame.font.SysFont('monospace', tamanho)
+        fonte = pygame.font.Font('PressStart2P-Regular.ttf', tamanho)
         if fonte.size(' ')[0] > consts.LARGURA_CARACTERE:
             tamanho -= 1
             encontrou_tamanho_certo = True
         else:
             tamanho += 1
-    __ASSETS['fonte'] = pygame.font.SysFont('monospace', tamanho)
+    __ASSETS['fonte'] = pygame.font.Font('PressStart2P-Regular.ttf', tamanho)
     return __ASSETS['fonte'].size(' ')

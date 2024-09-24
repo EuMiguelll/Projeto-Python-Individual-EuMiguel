@@ -12,24 +12,27 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
     motor.preenche_fundo(janela, BRANCO)
     
     # O seu código deve desenhar a tela do jogo aqui a partir dos valores no dicionário "estado"
-    # APAGUE ESTA LINHA E A LINHA ABAIXO E ESCREVA SEU CÓDIGO AQUI
+    
+    #desenha a tela
     for y in range(altura_tela):
         for x in range(largura_tela):
-            motor.desenha_string(janela, x, y, "A", VERDE_CLARO, VERDE_CLARO)
+            motor.desenha_string(janela, x, y, " ", VERDE_ESCURO, VERDE_ESCURO)
 
-    string_vida = (estado["vidas"]*CORACAO)+(estado["max_vidas"]-estado["vidas"])*"💀"
-    
     #Desenha vida com caveiras no espaco restante
-    motor.desenha_string(janela, 0,0, string_vida, AZUL, AZUL)
+    string_vida = (estado["vidas"]*CORACAO)+(estado["max_vidas"]-estado["vidas"])*DANO 
+    motor.desenha_string(janela, 0,0, string_vida, BRANCO, VERMELHO_ESCURO)
     
     #desenha os espinhos
     for objeto in estado["objetos"]:
         if objeto["tipo"] == ESPINHO:
-            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], ESPINHO, AZUL, PRETO)
+            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], ESPINHO, VERDE_ESCURO, PRETO)
     
     #desenha o personagem principal
-    motor.desenha_string(janela, estado["pos_jogador"][0], estado["pos_jogador"][1], JOGADOR, AZUL, PRETO)
-    
+    motor.desenha_string(janela, estado["pos_jogador"][0], estado["pos_jogador"][1], JOGADOR, VERDE_ESCURO, PRETO)
+
+    #desenha as mensagens
+    motor.desenha_string(janela,0, 29, estado['mensagem'], BRANCO, PRETO )
+
     motor.mostra_janela(janela)
 
 
@@ -42,12 +45,21 @@ def atualiza_estado(estado, tecla):
     
     # Começamos apagando a mensagem anterior, pois ela já foi mostrada no frame anterior
     estado['mensagem'] = ''
-
+    
+    for objeto in estado["objetos"]:
+        if objeto["tipo"] == ESPINHO:
+            if objeto["posicao"] == estado["pos_jogador"]:
+                estado["mensagem"] = "VOCE TOCOU NO ESPINHO!! -1HP"
+                estado["vidas"] -=1
+                
+    
     # Escreva seu código para atualizar o dicionário "estado" com base na tecla apertada pelo jogador aqui
+    #andar direita e esquerda
     if tecla == motor.SETA_DIREITA:
         estado["pos_jogador"][0]+=1
     if tecla == motor.SETA_ESQUERDA:
         estado["pos_jogador"][0]-=1
+    #andar cima e baixo
     if tecla == motor.SETA_CIMA:
         estado["pos_jogador"][1]-=1
     if tecla == motor.SETA_BAIXO:

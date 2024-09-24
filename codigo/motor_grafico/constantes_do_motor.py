@@ -8,6 +8,6 @@ SETA_CIMA = 'CIMA'
 SETA_BAIXO = 'BAIXO'
 
 # Constantes específicas para o motor pygame
-LARGURA_CARACTERE = 10  # Em pixels
-LARGURA_TELA_CHARS = 60  # Em caracteres
-ALTURA_TELA_CHARS = 24  # Em caracteres
+LARGURA_CARACTERE = 25  # Em pixels
+LARGURA_TELA_CHARS = 30  # Em caracteres
+ALTURA_TELA_CHARS = 30  # Em caracteres

@@ -53,21 +53,36 @@ def inicializa_estado():
     # Cria lista de listas, cada uma com 50 espaços em branco
     # Você pode mudar esta lista, inclusive seu tamanho, à vontade
     mapa = [
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
-        [' '] * 50,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
+        [' '] * 30,
     ]
     
     largura_mapa = len(mapa[0])
@@ -80,12 +95,12 @@ def inicializa_estado():
     posicoes_ocupadas = [pos_jogador]
     objetos = []
     objetos += gera_objetos(8, CORACAO, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
-    objetos += gera_objetos(6, ESPINHO, VERDE_CLARO, largura_mapa, altura_mapa, posicoes_ocupadas)
+    objetos += gera_objetos(12, ESPINHO, VERDE_CLARO, largura_mapa, altura_mapa, posicoes_ocupadas)
     
     return {
         'tela_atual': TELA_JOGO,
         'pos_jogador': pos_jogador,
-        'vidas': 1,  # Quantidade atual de vidas do jogador - ele pode perder vidas ao colidir com espinhos ou ganhar vidas ao pegar corações
+        'vidas': 4,  # Quantidade atual de vidas do jogador - ele pode perder vidas ao colidir com espinhos ou ganhar vidas ao pegar corações
         'max_vidas': 5,  # Quantidade máxima de vidas que o jogador pode ter - o valor da chave 'vidas' nunca pode ser maior que o valor da chave 'max_vidas'
         'objetos': objetos,
         'mapa': mapa,
