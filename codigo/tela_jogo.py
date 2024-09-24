@@ -52,18 +52,16 @@ def atualiza_estado(estado, tecla):
     
     # Escreva seu código para atualizar o dicionário "estado" com base na tecla apertada pelo jogador aqui
     #andar direita e esquerda
-    if tecla == motor.SETA_DIREITA:
+    if tecla == motor.SETA_DIREITA and estado["pos_jogador"][0] < 29 :
         estado["pos_jogador"][0]+=1
-    if tecla == motor.SETA_ESQUERDA:
+    if tecla == motor.SETA_ESQUERDA and estado["pos_jogador"][0] > 0:
         estado["pos_jogador"][0]-=1
     #andar cima e baixo
-    if tecla == motor.SETA_CIMA:
+    if tecla == motor.SETA_CIMA and estado["pos_jogador"][1] > 0:
         estado["pos_jogador"][1]-=1
-    if tecla == motor.SETA_BAIXO:
+    if tecla == motor.SETA_BAIXO and estado["pos_jogador"][1] < 29:
         estado["pos_jogador"][1]+=1
 
-    
-    
 
     #checa se o jogador está tocando em um espinho ou coracao
     for objeto in estado["objetos"]:
@@ -72,12 +70,16 @@ def atualiza_estado(estado, tecla):
                 estado["mensagem"] = "VOCE TOCOU NO ESPINHO!! -1HP"
                 estado["vidas"] -=1
         elif objeto["tipo"] == CORACAO:
+
             if objeto["posicao"] == estado["pos_jogador"]:
                 if estado["vidas"] < estado["max_vidas"]:
                     estado["mensagem"] = "VOCE PEGOU UMA VIDA!! +1HP"
                     estado["vidas"] +=1
                 else:
                     estado["mensagem"] = "FULL HP!!"
+                estado["objetos"].remove(objeto)
+        
+            
                 
     #fecha o jogo se perder as vidas
     if estado["vidas"] == 0:

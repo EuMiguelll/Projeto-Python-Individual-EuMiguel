@@ -18,15 +18,15 @@ No nível básico você deve entender o código fornecido e implementar as segui
     - [x] Mostrar mensagem.
 - [x] Implementar a função `atualiza_estado`:
     - [x] Mover o jogador;
-    - [ ] Impedir o jogador de sair do mapa;
-    - [ ] Ao colidir com um coração:
-        - [ ] Remover o coração da lista de objetos;
-        - [ ] Aumentar uma vida caso ainda não esteja no máximo;
-        - [ ] Não aumentar caso contrário;
-        - [ ] Adicionar uma mensagem indicando o que aconteceu.
-    - [ ] Ao colidir com um espinho:
-        - [ ] Diminuir uma vida;
-        - [ ] Terminar o jogo caso tenha atingido zero vidas (mudar `estado['tela_atual']`).
+    - [x] Impedir o jogador de sair do mapa;
+    - [x] Ao colidir com um coração:
+        - [x] Remover o coração da lista de objetos;
+        - [x] Aumentar uma vida caso ainda não esteja no máximo;
+        - [x] Não aumentar caso contrário;
+        - [x] Adicionar uma mensagem indicando o que aconteceu.
+    - [x] Ao colidir com um espinho:
+        - [x] Diminuir uma vida;
+        - [x] Terminar o jogo caso tenha atingido zero vidas (mudar `estado['tela_atual']`).
 
 ### [Nível Proficiente](proficiente.md)
 
