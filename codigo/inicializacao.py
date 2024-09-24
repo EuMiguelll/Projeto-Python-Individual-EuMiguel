@@ -11,6 +11,11 @@ def gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa):
     # Uma posição é uma lista com exatas dois elementos: a posição x e a posição y.
     # Além disso, a posição gerada deve ser adicionada à lista de posições ocupadas.
     
+    #ocupa o espaco do coracao
+    for x in range (0,5):
+        posicoes_ocupadas.append([x,0])
+
+    #gera uma posicao desocupada
     x_pos = randint(0, largura_mapa)
     y_pos = randint(0, altura_mapa)
 
@@ -100,7 +105,7 @@ def inicializa_estado():
     return {
         'tela_atual': TELA_JOGO,
         'pos_jogador': pos_jogador,
-        'vidas': 4,  # Quantidade atual de vidas do jogador - ele pode perder vidas ao colidir com espinhos ou ganhar vidas ao pegar corações
+        'vidas': 5,  # Quantidade atual de vidas do jogador - ele pode perder vidas ao colidir com espinhos ou ganhar vidas ao pegar corações
         'max_vidas': 5,  # Quantidade máxima de vidas que o jogador pode ter - o valor da chave 'vidas' nunca pode ser maior que o valor da chave 'max_vidas'
         'objetos': objetos,
         'mapa': mapa,

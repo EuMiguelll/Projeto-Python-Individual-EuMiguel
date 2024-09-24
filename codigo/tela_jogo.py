@@ -19,13 +19,17 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
             motor.desenha_string(janela, x, y, " ", VERDE_ESCURO, VERDE_ESCURO)
 
     #Desenha vida com caveiras no espaco restante
-    string_vida = (estado["vidas"]*CORACAO)+(estado["max_vidas"]-estado["vidas"])*DANO 
+    string_vida = (estado["vidas"]*VIDA)+(estado["max_vidas"]-estado["vidas"])*DANO 
     motor.desenha_string(janela, 0,0, string_vida, BRANCO, VERMELHO_ESCURO)
-    
-    #desenha os espinhos
+
+
+
+    #desenha os espinhos e o coracao
     for objeto in estado["objetos"]:
         if objeto["tipo"] == ESPINHO:
             motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], ESPINHO, VERDE_ESCURO, PRETO)
+        elif objeto["tipo"] == CORACAO:
+            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], CORACAO, VERDE_ESCURO, PRETO)
     
     #desenha o personagem principal
     motor.desenha_string(janela, estado["pos_jogador"][0], estado["pos_jogador"][1], JOGADOR, VERDE_ESCURO, PRETO)
@@ -46,13 +50,6 @@ def atualiza_estado(estado, tecla):
     # Começamos apagando a mensagem anterior, pois ela já foi mostrada no frame anterior
     estado['mensagem'] = ''
     
-    for objeto in estado["objetos"]:
-        if objeto["tipo"] == ESPINHO:
-            if objeto["posicao"] == estado["pos_jogador"]:
-                estado["mensagem"] = "VOCE TOCOU NO ESPINHO!! -1HP"
-                estado["vidas"] -=1
-                
-    
     # Escreva seu código para atualizar o dicionário "estado" com base na tecla apertada pelo jogador aqui
     #andar direita e esquerda
     if tecla == motor.SETA_DIREITA:
@@ -64,6 +61,27 @@ def atualiza_estado(estado, tecla):
         estado["pos_jogador"][1]-=1
     if tecla == motor.SETA_BAIXO:
         estado["pos_jogador"][1]+=1
+
+    
+    
+
+    #checa se o jogador está tocando em um espinho ou coracao
+    for objeto in estado["objetos"]:
+        if objeto["tipo"] == ESPINHO:
+            if objeto["posicao"] == estado["pos_jogador"]:
+                estado["mensagem"] = "VOCE TOCOU NO ESPINHO!! -1HP"
+                estado["vidas"] -=1
+        elif objeto["tipo"] == CORACAO:
+            if objeto["posicao"] == estado["pos_jogador"]:
+                if estado["vidas"] < estado["max_vidas"]:
+                    estado["mensagem"] = "VOCE PEGOU UMA VIDA!! +1HP"
+                    estado["vidas"] +=1
+                else:
+                    estado["mensagem"] = "FULL HP!!"
+                
+    #fecha o jogo se perder as vidas
+    if estado["vidas"] == 0:
+        estado["tela_atual"] = SAIR
 
     # Ao apertar a tecla 'i', o jogador deve ver o inventário
     if tecla == 'i':
