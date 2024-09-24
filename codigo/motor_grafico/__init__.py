@@ -6,7 +6,7 @@ precisa saber é o que elas fazem: elas são usadas para desenhar as telas e atu
 
 from .constantes_do_motor import *
 # Opções disponíveis: 'curses' e 'pygame'
-MOTOR = 'curses'
+MOTOR = 'pygame'
 
 
 if MOTOR == 'curses':

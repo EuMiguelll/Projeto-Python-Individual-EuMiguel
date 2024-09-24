@@ -15,7 +15,7 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
     # APAGUE ESTA LINHA E A LINHA ABAIXO E ESCREVA SEU CÓDIGO AQUI
     for y in range(altura_tela):
         for x in range(largura_tela):
-            motor.desenha_string(janela, x, y, "", AZUL, AZUL)
+            motor.desenha_string(janela, x, y, "A", VERDE_CLARO, VERDE_CLARO)
 
     string_vida = (estado["vidas"]*CORACAO)+(estado["max_vidas"]-estado["vidas"])*"💀"
     
