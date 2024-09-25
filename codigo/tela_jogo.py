@@ -16,7 +16,7 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
     #desenha a tela
     for y in range(altura_tela):
         for x in range(largura_tela):
-            motor.desenha_string(janela, x, y, " ", VERDE_ESCURO, VERDE_ESCURO)
+            motor.desenha_string(janela, x, y, " ", AMARELO_PRAIA, AMARELO_PRAIA)
 
     #Desenha vida com caveiras no espaco restante
     string_vida = (estado["vidas"]*VIDA)+(estado["max_vidas"]-estado["vidas"])*DANO 
@@ -27,14 +27,16 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
     #desenha os espinhos e o coracao e parede
     for objeto in estado["objetos"]:
         if objeto["tipo"] == ESPINHO:
-            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], ESPINHO, VERDE_ESCURO, PRETO)
+            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], ESPINHO, AMARELO_PRAIA, MARROM_MAIS_ESCURO)
         elif objeto["tipo"] == CORACAO:
-            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], CORACAO, VERDE_ESCURO, PRETO)
+            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], CORACAO, AMARELO_PRAIA, VERMELHO_ESCURO)
         elif objeto["tipo"] == PAREDE:
-            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], PAREDE,VERDE_ESCURO, PRETO)
+            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], PAREDE,AMARELO_PRAIA, PRETO)
+        elif objeto["tipo"] == MONSTRO:
+            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], MONSTRO, AMARELO_PRAIA, LARANJA)
     
     #desenha o personagem principal
-    motor.desenha_string(janela, estado["pos_jogador"][0], estado["pos_jogador"][1], JOGADOR, VERDE_ESCURO, PRETO)
+    motor.desenha_string(janela, estado["pos_jogador"][0], estado["pos_jogador"][1], JOGADOR, AMARELO_PRAIA, AZUL)
 
     #desenha as mensagens
     motor.desenha_string(janela,0, 29, estado['mensagem'], BRANCO, PRETO )
@@ -56,16 +58,21 @@ def atualiza_estado(estado, tecla):
     #andar direita e esquerda
     if tecla == motor.SETA_DIREITA and estado["pos_jogador"][0] < 29 :
         estado["pos_jogador"][0]+=1
+        moveu = "direita"
     if tecla == motor.SETA_ESQUERDA and estado["pos_jogador"][0] > 0:
         estado["pos_jogador"][0]-=1
+        moveu = "esquerda"
     #andar cima e baixo
     if tecla == motor.SETA_CIMA and estado["pos_jogador"][1] > 0:
         estado["pos_jogador"][1]-=1
+        moveu = "cima"
     if tecla == motor.SETA_BAIXO and estado["pos_jogador"][1] < 29:
         estado["pos_jogador"][1]+=1
+        moveu = "baixo"
 
 
     #checa se o jogador está tocando em um espinho ou coracao ou parede
+    
     for objeto in estado["objetos"]:
         if objeto["tipo"] == ESPINHO:
             if objeto["posicao"] == estado["pos_jogador"]:
@@ -81,7 +88,15 @@ def atualiza_estado(estado, tecla):
                 estado["objetos"].remove(objeto)
         elif objeto["tipo"] == PAREDE:
             if objeto["posicao"] == estado["pos_jogador"]:
-                estado["mensagem"] = "VOCE NAO PODE PASSA POR AQUI"
+                estado["mensagem"] = "VOCE NAO PODE PASSAR POR AQUI"
+                if moveu == "direita":
+                    estado["pos_jogador"][0]-=1
+                elif moveu == "esquerda":
+                    estado["pos_jogador"][0]+=1
+                elif moveu == "cima":
+                    estado["pos_jogador"][1]+=1
+                elif moveu == "baixo":
+                    estado["pos_jogador"][1]-=1
         
             
                 

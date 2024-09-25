@@ -99,8 +99,9 @@ def inicializa_estado():
     # Cria outros objetos do mapa
     posicoes_ocupadas = [pos_jogador]
     objetos = []
-    objetos += gera_objetos(8, CORACAO, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
+    objetos += gera_objetos(5, CORACAO, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(12, ESPINHO, VERDE_CLARO, largura_mapa, altura_mapa, posicoes_ocupadas)
+    objetos += gera_objetos(8, MONSTRO, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(5, PAREDE, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
 
     return {
