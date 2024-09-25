@@ -101,7 +101,8 @@ def inicializa_estado():
     objetos = []
     objetos += gera_objetos(8, CORACAO, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(12, ESPINHO, VERDE_CLARO, largura_mapa, altura_mapa, posicoes_ocupadas)
-    
+    objetos += gera_objetos(5, PAREDE, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
+
     return {
         'tela_atual': TELA_JOGO,
         'pos_jogador': pos_jogador,

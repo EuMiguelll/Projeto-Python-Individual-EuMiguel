@@ -24,12 +24,14 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
 
 
 
-    #desenha os espinhos e o coracao
+    #desenha os espinhos e o coracao e parede
     for objeto in estado["objetos"]:
         if objeto["tipo"] == ESPINHO:
             motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], ESPINHO, VERDE_ESCURO, PRETO)
         elif objeto["tipo"] == CORACAO:
             motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], CORACAO, VERDE_ESCURO, PRETO)
+        elif objeto["tipo"] == PAREDE:
+            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], PAREDE,VERDE_ESCURO, PRETO)
     
     #desenha o personagem principal
     motor.desenha_string(janela, estado["pos_jogador"][0], estado["pos_jogador"][1], JOGADOR, VERDE_ESCURO, PRETO)
@@ -63,14 +65,13 @@ def atualiza_estado(estado, tecla):
         estado["pos_jogador"][1]+=1
 
 
-    #checa se o jogador está tocando em um espinho ou coracao
+    #checa se o jogador está tocando em um espinho ou coracao ou parede
     for objeto in estado["objetos"]:
         if objeto["tipo"] == ESPINHO:
             if objeto["posicao"] == estado["pos_jogador"]:
                 estado["mensagem"] = "VOCE TOCOU NO ESPINHO!! -1HP"
                 estado["vidas"] -=1
         elif objeto["tipo"] == CORACAO:
-
             if objeto["posicao"] == estado["pos_jogador"]:
                 if estado["vidas"] < estado["max_vidas"]:
                     estado["mensagem"] = "VOCE PEGOU UMA VIDA!! +1HP"
@@ -78,6 +79,9 @@ def atualiza_estado(estado, tecla):
                 else:
                     estado["mensagem"] = "FULL HP!!"
                 estado["objetos"].remove(objeto)
+        elif objeto["tipo"] == PAREDE:
+            if objeto["posicao"] == estado["pos_jogador"]:
+                estado["mensagem"] = "VOCE NAO PODE PASSA POR AQUI"
         
             
                 
