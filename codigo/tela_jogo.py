@@ -20,18 +20,16 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
         for x in range(largura_tela):
             motor.desenha_string(janela, x, y, " ", AMARELO_PRAIA, AMARELO_PRAIA)
 
-    #Desenha vida com caveiras no espaco restante
+    #Desenha vida com ~ no espaco restante
     string_vida = (estado["vidas"]*VIDA)+(estado["max_vidas"]-estado["vidas"])*DANO 
     motor.desenha_string(janela, 0,0, string_vida, BRANCO, VERMELHO_ESCURO)
-
-
 
     #desenha os espinhos e o coracao e parede
     for objeto in estado["objetos"]:
         if objeto["tipo"] == ESPINHO:
             motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], ESPINHO, AMARELO_PRAIA, MARROM_MAIS_ESCURO)
-        elif objeto["tipo"] == CORACAO:
-            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], CORACAO, AMARELO_PRAIA, VERMELHO_ESCURO)
+        elif objeto["tipo"] == MAÇA:
+            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], MAÇA, AMARELO_PRAIA, VERMELHO)
         elif objeto["tipo"] == PAREDE:
             motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], PAREDE,AMARELO_PRAIA, PRETO)
         elif objeto["tipo"] == MONSTRO:
@@ -137,7 +135,7 @@ def atualiza_estado(estado, tecla):
                 estado["mensagem"] = "VOCE TOCOU NO ESPINHO!! -1HP"
                 estado["vidas"] -=1
         #checa se o jogador está tocando em um coracao:
-        elif objeto["tipo"] == CORACAO:
+        elif objeto["tipo"] == MAÇA:
             if objeto["posicao"] == estado["pos_jogador"]:
                 if estado["vidas"] < estado["max_vidas"]:
                     estado["mensagem"] = "VOCE PEGOU UMA VIDA!! +1HP"

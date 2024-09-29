@@ -16,12 +16,12 @@ def gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa):
         posicoes_ocupadas.append([x,0])
 
     #gera uma posicao desocupada
-    x_pos = randint(0, largura_mapa)
-    y_pos = randint(0, altura_mapa)
+    x_pos = randint(0, 29)
+    y_pos = randint(0, 29)
 
     while [x_pos,y_pos] in posicoes_ocupadas:
-        x_pos = randint(0, largura_mapa)
-        y_pos = randint(0, altura_mapa)
+        x_pos = randint(0, 29)
+        y_pos = randint(0, 29)
     posicoes_ocupadas.append([x_pos,y_pos])
 
     return [x_pos, y_pos]
@@ -43,7 +43,7 @@ def gera_objetos(quantidade, tipo, cor, largura_mapa, altura_mapa, posicoes_ocup
     """
     objetos = []
 
-    normais = [JOGADOR, ESPINHO, PAREDE, VIDA, DANO]
+    normais = [JOGADOR, ESPINHO, PAREDE, VIDA, DANO, MAÇA]
 
     if tipo in normais:
         for i in range(quantidade):
@@ -116,7 +116,7 @@ def inicializa_estado():
     # Cria outros objetos do mapa
     posicoes_ocupadas = [pos_jogador]
     objetos = []
-    objetos += gera_objetos(5, CORACAO, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
+    objetos += gera_objetos(5, MAÇA, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(12, ESPINHO, VERDE_CLARO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(8, MONSTRO, BRANCO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(5, PAREDE, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
@@ -129,5 +129,5 @@ def inicializa_estado():
         'objetos': objetos,
         'mapa': mapa,
         'mensagem': '',  # Use esta mensagem para mostrar mensagens ao jogador, como "Você perdeu uma vida" ou "Você ganhou uma vida"
-        'posicoes_ocupadas': posicoes_ocupadas
+        'posicoes_ocupadas':posicoes_ocupadas
     }
