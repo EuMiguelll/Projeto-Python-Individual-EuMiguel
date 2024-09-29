@@ -43,7 +43,9 @@ def gera_objetos(quantidade, tipo, cor, largura_mapa, altura_mapa, posicoes_ocup
     """
     objetos = []
 
-    if tipo != MONSTRO:
+    normais = [JOGADOR, ESPINHO, PAREDE, VIDA, DANO]
+
+    if tipo in normais:
         for i in range(quantidade):
             posicao = gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa)
             objetos.append({
