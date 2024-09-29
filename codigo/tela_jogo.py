@@ -20,9 +20,18 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
         for x in range(largura_tela):
             motor.desenha_string(janela, x, y, " ", AMARELO_PRAIA, AMARELO_PRAIA)
 
+    #Desenha branco da HUD:
+    for y in range(0,2):
+        for x in range(0,8):
+            motor.desenha_string(janela,x,y," ", BRANCO, BRANCO)
+
     #Desenha vida com ~ no espaco restante
     string_vida = (estado["vidas"]*VIDA)+(estado["max_vidas"]-estado["vidas"])*DANO 
     motor.desenha_string(janela, 0,0, string_vida, BRANCO, VERMELHO_ESCURO)
+
+    #Desenha o nivel do personagem na tela:
+    niveltela = estado["nivel"]
+    motor.desenha_string(janela, 0,1,f"Nível:{niveltela}", BRANCO,ROXO)
 
     #desenha os espinhos e o coracao e parede
     for objeto in estado["objetos"]:
@@ -82,54 +91,58 @@ def atualiza_estado(estado, tecla):
     for objeto in estado["objetos"]:
         if objeto["tipo"] == MONSTRO or objeto["tipo"] == MONSTRAO:
             escolha_aleatória = randint(1,8)
+
+            #50% de chance do monstro escolher mexer
+            vou_mexer = choice([0,1])
             
-            if escolha_aleatória == 1:
-                if objeto["posicao"][0] > 0 and objeto["posicao"][1]  >0 and [objeto["posicao"][0]-1,objeto["posicao"][1]-1] not in posicoes_ocupadas2:
-                    objeto["posicao"][0] -=1
-                    objeto["posicao"][1] -=1
-                    objeto["moveu_para"] = "cima_esquerda"
-                    posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
-            elif escolha_aleatória == 2:
-                if objeto["posicao"][1] > 0 and [objeto["posicao"][0],objeto["posicao"][1]-1] not in posicoes_ocupadas2:
-                    objeto["posicao"][1] -=1
-                    objeto["moveu_para"] = "cima"
-                    posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
-            elif escolha_aleatória == 3:
-                if objeto["posicao"][0] < 29 and objeto["posicao"][1]  >0 and [objeto["posicao"][0]+1,objeto["posicao"][1]-1] not in posicoes_ocupadas2:
-                    objeto["posicao"][0] +=1
-                    objeto["posicao"][1] -=1
-                    objeto["moveu_para"] = "cima_direita"
-                    posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
-            elif escolha_aleatória == 4:
-                if objeto["posicao"][0] < 29 and [objeto["posicao"][0]+1,objeto["posicao"][1]] not in posicoes_ocupadas2:
-                    objeto["posicao"][0] +=1
-                    objeto["moveu_para"] = "direita"
-                    posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
-            elif escolha_aleatória == 5:
-                if objeto["posicao"][0] < 29 and objeto["posicao"][1] < 29 and [objeto["posicao"][0]+1,objeto["posicao"][1]+1] not in posicoes_ocupadas2:
-                    objeto["posicao"][0] +=1
-                    objeto["posicao"][1] +=1
-                    objeto["moveu_para"] = "baixo_direita"
-                    posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
-            elif escolha_aleatória == 6:
-                if objeto["posicao"][1] < 29 and [objeto["posicao"][0],objeto["posicao"][1]+1] not in posicoes_ocupadas2:
-                    objeto["posicao"][1] +=1
-                    objeto["moveu_para"] = "baixo"
-                    posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
-            elif escolha_aleatória == 7:
-                if objeto["posicao"][0] > 0 and objeto["posicao"][1] < 29 and [objeto["posicao"][0]-1,objeto["posicao"][1]+1] not in posicoes_ocupadas2:
-                    objeto["posicao"][0] -=1
-                    objeto["posicao"][1] +=1
-                    objeto["moveu_para"] = "baixo_esquerda"
-                    posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
-            elif escolha_aleatória == 8:
-                if objeto["posicao"][0] > 0 and [objeto["posicao"][0]-1,objeto["posicao"][1]] not in posicoes_ocupadas2:
-                    objeto["posicao"][0] -=1
-                    objeto["moveu_para"] = "esquerda"
-                    posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
+            #se ele escolher mexer, ele sorteia uma direcao em volta dele e se mexe, ele lembra pra onde se mexeu no estado["moveu_para"]
+            if vou_mexer == 1:
+                if escolha_aleatória == 1:
+                    if objeto["posicao"][0] > 0 and objeto["posicao"][1]  >0 and [objeto["posicao"][0]-1,objeto["posicao"][1]-1] not in posicoes_ocupadas2:
+                        objeto["posicao"][0] -=1
+                        objeto["posicao"][1] -=1
+                        objeto["moveu_para"] = "cima_esquerda"
+                        posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
+                elif escolha_aleatória == 2:
+                    if objeto["posicao"][1] > 0 and [objeto["posicao"][0],objeto["posicao"][1]-1] not in posicoes_ocupadas2:
+                        objeto["posicao"][1] -=1
+                        objeto["moveu_para"] = "cima"
+                        posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
+                elif escolha_aleatória == 3:
+                    if objeto["posicao"][0] < 29 and objeto["posicao"][1]  >0 and [objeto["posicao"][0]+1,objeto["posicao"][1]-1] not in posicoes_ocupadas2:
+                        objeto["posicao"][0] +=1
+                        objeto["posicao"][1] -=1
+                        objeto["moveu_para"] = "cima_direita"
+                        posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
+                elif escolha_aleatória == 4:
+                    if objeto["posicao"][0] < 29 and [objeto["posicao"][0]+1,objeto["posicao"][1]] not in posicoes_ocupadas2:
+                        objeto["posicao"][0] +=1
+                        objeto["moveu_para"] = "direita"
+                        posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
+                elif escolha_aleatória == 5:
+                    if objeto["posicao"][0] < 29 and objeto["posicao"][1] < 29 and [objeto["posicao"][0]+1,objeto["posicao"][1]+1] not in posicoes_ocupadas2:
+                        objeto["posicao"][0] +=1
+                        objeto["posicao"][1] +=1
+                        objeto["moveu_para"] = "baixo_direita"
+                        posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
+                elif escolha_aleatória == 6:
+                    if objeto["posicao"][1] < 29 and [objeto["posicao"][0],objeto["posicao"][1]+1] not in posicoes_ocupadas2:
+                        objeto["posicao"][1] +=1
+                        objeto["moveu_para"] = "baixo"
+                        posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
+                elif escolha_aleatória == 7:
+                    if objeto["posicao"][0] > 0 and objeto["posicao"][1] < 29 and [objeto["posicao"][0]-1,objeto["posicao"][1]+1] not in posicoes_ocupadas2:
+                        objeto["posicao"][0] -=1
+                        objeto["posicao"][1] +=1
+                        objeto["moveu_para"] = "baixo_esquerda"
+                        posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
+                elif escolha_aleatória == 8:
+                    if objeto["posicao"][0] > 0 and [objeto["posicao"][0]-1,objeto["posicao"][1]] not in posicoes_ocupadas2:
+                        objeto["posicao"][0] -=1
+                        objeto["moveu_para"] = "esquerda"
+                        posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
 
     #checa se o jogador está tocando em um espinho ou coracao ou parede
-    
     for objeto in estado["objetos"]:
         #checa se o jogador está tocando em um espinho:
         if objeto["tipo"] == ESPINHO:
@@ -161,7 +174,6 @@ def atualiza_estado(estado, tecla):
         elif objeto["tipo"] == MONSTRO or objeto["tipo"] == MONSTRAO:
             #checa se o monstro ta em uma posicao ocupada e volta ele caso ele esteja
             if objeto["posicao"] in estado["posicoes_ocupadas"]:
-                estado["mensagem"] == "AAAAAA"
                 if objeto["moveu_para"] == "cima_esquerda":
                     objeto["posicao"][0] +=1
                     objeto["posicao"][1] +=1
@@ -184,7 +196,6 @@ def atualiza_estado(estado, tecla):
                     objeto["posicao"][0] +=1
             #checa se o jogador está em cima do monstro, volta o jogador e determina quem dá o dano
             if objeto["posicao"] == estado["pos_jogador"]:
-                estado["mensagem"] = "AAAAAAA"
                 if moveu == "direita":
                     estado["pos_jogador"][0]-=1
                 elif moveu == "esquerda":
@@ -205,12 +216,21 @@ def atualiza_estado(estado, tecla):
                         estado["mensagem"] = "VOCÊ MATOU O MONSTRO!"
                         estado["pos_jogador"] = objeto["posicao"]
                         estado["objetos"].remove(objeto)
-                
-    nao_andar_na_vida = [[0,0],[1,0],[2,0],[3,0],[4,0]]
+                        estado["barra_xp"] += 100 + 50*estado["nivel"]
+                        if objeto["tipo"] == MONSTRAO:
+                            estado["barra_xp"] += 300
+                        estado["nivel"] = estado["barra_xp"]//100
+    
 
-    #não deixa o jogador andar pro cima da vida
-    for item in nao_andar_na_vida:
-        if estado["pos_jogador"] in nao_andar_na_vida:
+    nao_andar_hud = []
+
+    for y in range(0,2):
+        for x in range(0,8):
+            nao_andar_hud.append([x,y])
+
+    #não deixa o jogador andar na hud
+    for item in nao_andar_hud:
+        if estado["pos_jogador"] in nao_andar_hud:
             if moveu == "direita":
                 estado["pos_jogador"][0]-=1
             elif moveu == "esquerda":

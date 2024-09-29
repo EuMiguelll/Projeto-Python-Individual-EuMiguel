@@ -11,9 +11,10 @@ def gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa):
     # Uma posição é uma lista com exatas dois elementos: a posição x e a posição y.
     # Além disso, a posição gerada deve ser adicionada à lista de posições ocupadas.
     
-    #ocupa o espaco do coracao
-    for x in range(0,5):
-        posicoes_ocupadas.append([x,0])
+    #espaco da hud é ocupado
+    for y in range(0,2):
+        for x in range(0,8):
+            posicoes_ocupadas.append([x,y])
 
     #gera uma posicao desocupada
     x_pos = randint(0, 29)
@@ -54,8 +55,9 @@ def gera_objetos(quantidade, tipo, cor, largura_mapa, altura_mapa, posicoes_ocup
                 'cor': cor,
             })
     
-    cores = [[0, 0, 0], [0, 180, 0], [0, 100, 0], [0, 0, 130], [255, 0, 0], [200, 0, 200]]
-    
+    cores = [PRETO, VERDE_CLARO, VERDE_ESCURO, AZUL, VERMELHO, ROXO]
+    cores_monstrao = [PRETO, AZUL, ROXO, ROXO_ESCURO]
+
     if tipo == MONSTRO:
         for i in range(quantidade):
             posicao = gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa)
@@ -73,7 +75,7 @@ def gera_objetos(quantidade, tipo, cor, largura_mapa, altura_mapa, posicoes_ocup
             objetos.append({
                 'tipo': tipo,
                 'posicao': posicao,
-                'cor': choice(cores),
+                'cor': choice(cores_monstrao),
                 'vida': 5,
                 'moveu_para': '',
                 'probabilidade_de_ataque': 0.5,
@@ -127,17 +129,19 @@ def inicializa_estado():
     # Cria outros objetos do mapa
     posicoes_ocupadas = [pos_jogador]
     objetos = []
-    objetos += gera_objetos(5, MAÇA, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
+    objetos += gera_objetos(9, MAÇA, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(12, ESPINHO, VERDE_CLARO, largura_mapa, altura_mapa, posicoes_ocupadas)
-    objetos += gera_objetos(8, MONSTRO, BRANCO, largura_mapa, altura_mapa, posicoes_ocupadas)
+    objetos += gera_objetos(9, MONSTRO, BRANCO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(3, MONSTRAO, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
-    objetos += gera_objetos(5, PAREDE, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
+    objetos += gera_objetos(6, PAREDE, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
 
     return {
         'tela_atual': TELA_INICIAL,
         'pos_jogador': pos_jogador,
         'vidas': 5,  # Quantidade atual de vidas do jogador - ele pode perder vidas ao colidir com espinhos ou ganhar vidas ao pegar corações
         'max_vidas': 5,  # Quantidade máxima de vidas que o jogador pode ter - o valor da chave 'vidas' nunca pode ser maior que o valor da chave 'max_vidas'
+        'nivel':0,
+        'barra_xp': 0,
         'objetos': objetos,
         'mapa': mapa,
         'mensagem': '',  # Use esta mensagem para mostrar mensagens ao jogador, como "Você perdeu uma vida" ou "Você ganhou uma vida"

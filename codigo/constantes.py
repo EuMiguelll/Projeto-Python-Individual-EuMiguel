@@ -15,8 +15,10 @@ VERMELHO = [255, 0, 0]
 VERMELHO_ESCURO = [204, 34,0]
 LARANJA = [247, 141, 11]
 ROXO = [200, 0, 200]
+ROXO_ESCURO = [51, 12, 31]
 MARROM_ESCURO = [100, 50, 0]
 MARROM_MAIS_ESCURO = [75, 40, 0]
+
 
 # Telas
 # As constantes abaixo são apenas números. Elas são usadas para controlar qual tela deve ser desenhada.
