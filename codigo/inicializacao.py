@@ -1,4 +1,4 @@
-from random import randint
+from random import *
 
 from constantes import *  # Você pode usar as constantes definidas em constantes.py, se achar útil
                           # Por exemplo, usar a constante CORACAO é o mesmo que colocar a string '❤'
@@ -12,7 +12,7 @@ def gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa):
     # Além disso, a posição gerada deve ser adicionada à lista de posições ocupadas.
     
     #ocupa o espaco do coracao
-    for x in range (0,5):
+    for x in range(0,5):
         posicoes_ocupadas.append([x,0])
 
     #gera uma posicao desocupada
@@ -43,14 +43,29 @@ def gera_objetos(quantidade, tipo, cor, largura_mapa, altura_mapa, posicoes_ocup
     """
     objetos = []
 
-    for i in range(quantidade):
-        posicao = gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa)
-        objetos.append({
-            'tipo': tipo,
-            'posicao': posicao,
-            'cor': cor,
-        })
-
+    if tipo != MONSTRO:
+        for i in range(quantidade):
+            posicao = gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa)
+            objetos.append({
+                'tipo': tipo,
+                'posicao': posicao,
+                'cor': cor,
+            })
+    
+    cores = [[0, 0, 0], [0, 180, 0], [0, 100, 0], [0, 0, 130], [255, 0, 0], [200, 0, 200]]
+    
+    if tipo == MONSTRO:
+        for i in range(quantidade):
+            posicao = gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa)
+            objetos.append({
+                'tipo': tipo,
+                'posicao': posicao,
+                'cor': choice(cores),
+                'vida': 3,
+                'moveu_para': '',
+                'probabilidade_de_ataque': 0.2,
+            })
+        
     return objetos
 
 
@@ -101,7 +116,7 @@ def inicializa_estado():
     objetos = []
     objetos += gera_objetos(5, CORACAO, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(12, ESPINHO, VERDE_CLARO, largura_mapa, altura_mapa, posicoes_ocupadas)
-    objetos += gera_objetos(8, MONSTRO, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
+    objetos += gera_objetos(8, MONSTRO, BRANCO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(5, PAREDE, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
 
     return {
@@ -112,4 +127,5 @@ def inicializa_estado():
         'objetos': objetos,
         'mapa': mapa,
         'mensagem': '',  # Use esta mensagem para mostrar mensagens ao jogador, como "Você perdeu uma vida" ou "Você ganhou uma vida"
+        'posicoes_ocupadas': posicoes_ocupadas
     }
