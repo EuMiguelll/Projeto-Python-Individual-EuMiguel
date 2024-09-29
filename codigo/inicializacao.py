@@ -122,7 +122,7 @@ def inicializa_estado():
     objetos += gera_objetos(5, PAREDE, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
 
     return {
-        'tela_atual': TELA_JOGO,
+        'tela_atual': TELA_INICIAL,
         'pos_jogador': pos_jogador,
         'vidas': 5,  # Quantidade atual de vidas do jogador - ele pode perder vidas ao colidir com espinhos ou ganhar vidas ao pegar corações
         'max_vidas': 5,  # Quantidade máxima de vidas que o jogador pode ter - o valor da chave 'vidas' nunca pode ser maior que o valor da chave 'max_vidas'

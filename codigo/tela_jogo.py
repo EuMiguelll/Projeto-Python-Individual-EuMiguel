@@ -52,7 +52,6 @@ def atualiza_estado(estado, tecla):
     # o seu código deve atualizar o dicionário estado['pos_jogador'][0] -= 1
 
     # Mude o valor da chave 'tela_atual' para mudar de tela
-    
     # Começamos apagando a mensagem anterior, pois ela já foi mostrada no frame anterior
     estado['mensagem'] = ''
 
