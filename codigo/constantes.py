@@ -35,3 +35,4 @@ PAREDE = '#'
 VIDA = "♥"
 DANO = "~"
 MONSTRO = 'ϊ'
+MONSTRAO = 'Ů'

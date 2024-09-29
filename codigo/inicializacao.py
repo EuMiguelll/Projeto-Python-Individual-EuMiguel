@@ -67,6 +67,17 @@ def gera_objetos(quantidade, tipo, cor, largura_mapa, altura_mapa, posicoes_ocup
                 'moveu_para': '',
                 'probabilidade_de_ataque': 0.2,
             })
+    elif tipo == MONSTRAO:
+        for i in range(quantidade):
+            posicao = gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa)
+            objetos.append({
+                'tipo': tipo,
+                'posicao': posicao,
+                'cor': choice(cores),
+                'vida': 5,
+                'moveu_para': '',
+                'probabilidade_de_ataque': 0.5,
+            })
         
     return objetos
 
@@ -119,6 +130,7 @@ def inicializa_estado():
     objetos += gera_objetos(5, MAÇA, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(12, ESPINHO, VERDE_CLARO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(8, MONSTRO, BRANCO, largura_mapa, altura_mapa, posicoes_ocupadas)
+    objetos += gera_objetos(3, MONSTRAO, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(5, PAREDE, MARROM_ESCURO, largura_mapa, altura_mapa, posicoes_ocupadas)
 
     return {

@@ -36,7 +36,11 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
             motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], MONSTRO, AMARELO_PRAIA, objeto["cor"])
             qnt_vidas = objeto["vida"]
             motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1]-1, f"{qnt_vidas}", BRANCO, PRETO)
-    
+        elif objeto["tipo"] == MONSTRAO:
+            qnt_vidas_monstrao = objeto["vida"]
+            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1], MONSTRAO, AMARELO_PRAIA, objeto["cor"])
+            motor.desenha_string(janela, objeto["posicao"][0], objeto["posicao"][1]-1, f"{qnt_vidas_monstrao}", BRANCO, PRETO)
+
     #desenha o personagem principal
     motor.desenha_string(janela, estado["pos_jogador"][0], estado["pos_jogador"][1], JOGADOR, AMARELO_PRAIA, AZUL)
 
@@ -74,9 +78,9 @@ def atualiza_estado(estado, tecla):
         estado["pos_jogador"][1]+=1
         moveu = "baixo"
 
-    #monstro escolhe localizacao aleatoriamente para se mover, sem sair do mapa
+#monstro escolhe localizacao aleatoriamente para se mover, sem sair do mapa
     for objeto in estado["objetos"]:
-        if objeto["tipo"] == MONSTRO:
+        if objeto["tipo"] == MONSTRO or objeto["tipo"] == MONSTRAO:
             escolha_aleatória = randint(1,8)
             
             if escolha_aleatória == 1:
@@ -123,7 +127,6 @@ def atualiza_estado(estado, tecla):
                     objeto["posicao"][0] -=1
                     objeto["moveu_para"] = "esquerda"
                     posicoes_ocupadas2.append([objeto["posicao"][0],objeto["posicao"][1]])
-            
 
     #checa se o jogador está tocando em um espinho ou coracao ou parede
     
@@ -154,32 +157,11 @@ def atualiza_estado(estado, tecla):
                     estado["pos_jogador"][1]+=1
                 elif moveu == "baixo":
                     estado["pos_jogador"][1]-=1
-        elif objeto["tipo"] == MONSTRO:
-            if objeto["posicao"] == estado["pos_jogador"]:
-                #volta a posicao do jogador
-                if moveu == "direita":
-                    estado["pos_jogador"][0]-=1
-                elif moveu == "esquerda":
-                    estado["pos_jogador"][0]+=1
-                elif moveu == "cima":
-                    estado["pos_jogador"][1]+=1
-                elif moveu == "baixo":
-                    estado["pos_jogador"][1]-=1
-
-                #checa quem ataca
-                if random() <= objeto["probabilidade_de_ataque"]:
-                    estado["mensagem"] = "O MONSTRO TE ATACOU!"
-                    estado["vidas"] -=1
-                else:
-                    objeto["vida"] -=1
-                    estado["mensagem"] = "VOCÊ ATACOU O MONSTRO!"
-
-                    if objeto["vida"] < 1:
-                        estado["mensagem"] = "VOCÊ MATOU O MONSTRO!"
-                        estado["pos_jogador"] = objeto["posicao"]
-                        estado["objetos"].remove(objeto)
-            
-            elif objeto["posicao"] in estado["posicoes_ocupadas"]:
+        
+        elif objeto["tipo"] == MONSTRO or objeto["tipo"] == MONSTRAO:
+            #checa se o monstro ta em uma posicao ocupada e volta ele caso ele esteja
+            if objeto["posicao"] in estado["posicoes_ocupadas"]:
+                estado["mensagem"] == "AAAAAA"
                 if objeto["moveu_para"] == "cima_esquerda":
                     objeto["posicao"][0] +=1
                     objeto["posicao"][1] +=1
@@ -200,10 +182,29 @@ def atualiza_estado(estado, tecla):
                     objeto["posicao"][1] -=1
                 elif objeto["moveu_para"] == "esquerda":
                     objeto["posicao"][0] +=1
-
-            
-
-
+            #checa se o jogador está em cima do monstro, volta o jogador e determina quem dá o dano
+            if objeto["posicao"] == estado["pos_jogador"]:
+                estado["mensagem"] = "AAAAAAA"
+                if moveu == "direita":
+                    estado["pos_jogador"][0]-=1
+                elif moveu == "esquerda":
+                    estado["pos_jogador"][0]+=1
+                elif moveu == "cima":
+                    estado["pos_jogador"][1]+=1
+                elif moveu == "baixo":
+                    estado["pos_jogador"][1]-=1
+                #checa quem ataca
+                if random() <= objeto["probabilidade_de_ataque"]:
+                    estado["mensagem"] = "O MONSTRO TE ATACOU!"
+                    estado["vidas"] -=1
+                else:
+                    objeto["vida"] -=1
+                    estado["mensagem"] = "VOCÊ ATACOU O MONSTRO!"
+                #se o monstro levar dano e ficar com 0 de vida ele morre e sai da lista de objetos
+                    if objeto["vida"] < 1:
+                        estado["mensagem"] = "VOCÊ MATOU O MONSTRO!"
+                        estado["pos_jogador"] = objeto["posicao"]
+                        estado["objetos"].remove(objeto)
                 
     nao_andar_na_vida = [[0,0],[1,0],[2,0],[3,0],[4,0]]
 
