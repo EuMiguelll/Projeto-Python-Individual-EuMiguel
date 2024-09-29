@@ -6,12 +6,12 @@ def desenha_tela(janela, estado, altura, largura):
     # Você pode usar esta função como base para a sua função desenha_tela do arquivo tela_jogo.py
     # Esta tela é mostrada quando o jogador aperta a tecla 'i' (você provavelmente vai querer 
     # alterar este arquivo no nível avançado)
-    motor.preenche_fundo(janela, BRANCO)
+    motor.preenche_fundo(janela, AMARELO_CLARINHO)
 
-    motor.desenha_string(janela, largura//2-9,altura//2,f"Projeto Individual", BRANCO, PRETO)
-    motor.desenha_string(janela, largura//2-6,altura//2+1,f"Por Miguel D.", BRANCO, PRETO)
+    motor.desenha_string(janela, largura//2-9,9,f"Projeto Individual", BRANCO, PRETO)
+    motor.desenha_string(janela, largura//2-6,10,f"Por Miguel D.", BRANCO, PRETO)
     motor.desenha_string(janela, largura//2-14,25,f"Pressione <ENTER> para jogar", BRANCO, PRETO)
-    motor.desenha_string(janela, largura//2-6,26,f"ou <ESC> para sair", BRANCO, PRETO)
+    motor.desenha_string(janela, largura//2-9,26,f"ou <ESC> para sair", BRANCO, PRETO)
     motor.mostra_janela(janela)
 
 
